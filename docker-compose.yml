@@ -1,0 +1,23 @@
+services:
+  api:
+    build: .
+    container_name: intranet_gener_tickets_api
+    restart: unless-stopped
+    expose:
+      - "8210"
+    env_file:
+      - .env
+    volumes:
+      - /home/ec2-user/.aws:/root/.aws:ro
+      - /data/imagenes-proyectos:/app/imagenes
+    networks:
+      - intranet_api_keycloak_network
+      - intranet_gestion_auth_network
+    external_links:
+      - mysql-db-api-keycloak:mysql-db-api-keycloak
+
+networks:
+  intranet_api_keycloak_network:
+    external: true
+  intranet_gestion_auth_network:
+    external: true
