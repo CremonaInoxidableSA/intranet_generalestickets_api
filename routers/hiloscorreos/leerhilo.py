@@ -19,7 +19,8 @@ async def leer_archivo_eml(
 ):
     """
     Lee el contenido de un archivo EML vinculado a un ticket.
-    Retorna el contenido formateado con asunto, remitente, destinatarios y cuerpo HTML.
+    Retorna cada correo del hilo (del más reciente al más antiguo) con remitente, destinatarios,
+    asunto, fecha y `cuerpo_html` sanitizado (listo para renderizar).
     
     Requiere permiso: PERMISO_VER_TICKETS_POSTVENTA
     """
