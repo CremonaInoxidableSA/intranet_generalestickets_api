@@ -8,7 +8,7 @@ from models.hilo_tickets import HiloTickets
 from models.tickets import Tickets
 
 
-CARPETA_HILOSCORREOS = Path(__file__).resolve().parents[2] / "archivos" / "hiloscorreos"
+CARPETA_HILOSCORREOS = Path("/app/archivos/hiloscorreos")
 
 
 def _eliminar_archivo(ruta: Path) -> None:

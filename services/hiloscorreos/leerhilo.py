@@ -15,7 +15,7 @@ from services.hiloscorreos.html_correo import (
 )
 
 
-CARPETA_HILOSCORREOS = Path(__file__).resolve().parents[2] / "archivos" / "hiloscorreos"
+CARPETA_HILOSCORREOS = Path("/app/archivos/hiloscorreos")
 
 
 def _decodificar_payload(part) -> str:

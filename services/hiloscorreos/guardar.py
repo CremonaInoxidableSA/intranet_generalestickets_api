@@ -9,7 +9,7 @@ from models.hilo_tickets import HiloTickets
 from models.tickets import Tickets
 
 
-CARPETA_HILOSCORREOS = Path(__file__).resolve().parents[2] / "archivos" / "hiloscorreos"
+CARPETA_HILOSCORREOS = Path("/app/archivos/hiloscorreos")
 CARPETA_HILOSCORREOS.mkdir(parents=True, exist_ok=True)
 
 MAX_BYTES_ARCHIVO = 50 * 1024 * 1024

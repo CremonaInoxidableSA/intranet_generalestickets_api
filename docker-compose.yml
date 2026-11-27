@@ -9,7 +9,8 @@ services:
       - .env
     volumes:
       - /home/ec2-user/.aws:/root/.aws:ro
-      - /data/imagenes-proyectos:/app/imagenes
+      - /postventa/multimedia:/app/archivos/multimedia
+      - /postventa/hiloscorreos:/app/archivos/hiloscorreos
     networks:
       - intranet_api_keycloak_network
       - intranet_gestion_auth_network

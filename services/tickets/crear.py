@@ -17,7 +17,7 @@ from schemas.authenticated_user import AuthenticatedUser
 from schemas.tickets import InvolucradoCrear, ResolutorCrear
 
 
-CARPETA_MULTIMEDIA = Path(__file__).resolve().parents[2] / "archivos" / "multimedia"
+CARPETA_MULTIMEDIA = Path("/app/archivos/multimedia")
 CARPETA_MULTIMEDIA.mkdir(parents=True, exist_ok=True)
 
 MAX_ARCHIVOS = 5
