@@ -99,9 +99,12 @@ async def guardar_archivo_eml_service(id_ticket: int, archivo: UploadFile) -> di
     db = SessionLocal()
     ruta_creada: Path = None
     try:
-        ticket = db.query(Tickets).filter(Tickets.id_ticket == id_ticket).first()
+        ticket = db.query(Tickets).filter(
+            Tickets.id_ticket == id_ticket,
+            Tickets.estado_ticket == True
+        ).first()
         if not ticket:
-            raise ValueError(f"Ticket con ID {id_ticket} no encontrado.")
+            raise ValueError(f"Ticket con ID {id_ticket} no encontrado o está inactivo.")
 
         # Validar que no existan 3 o más hilos para este ticket
         cantidad_hilos = db.query(HiloTickets).filter(

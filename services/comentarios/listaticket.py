@@ -10,6 +10,19 @@ def listar_comentarios_por_ticket_service(id_ticket: int):
     """
     db = SessionLocal()
     try:
+        from models.tickets import Tickets
+        
+        ticket = db.query(Tickets).filter(
+            Tickets.id_ticket == id_ticket,
+            Tickets.estado_ticket == True
+        ).first()
+        
+        if not ticket:
+            return {
+                "success": False,
+                "detail": "El ticket no existe o está inactivo."
+            }
+        
         comentarios = db.query(Comentarios).filter(
             Comentarios.id_ticket == id_ticket
         ).order_by(desc(Comentarios.fecha_creacion)).all()

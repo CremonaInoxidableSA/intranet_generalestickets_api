@@ -25,13 +25,14 @@ def crear_comentario_service(
 
     try:
         ticket = db.query(Tickets).filter(
-            Tickets.id_ticket == id_ticket
+            Tickets.id_ticket == id_ticket,
+            Tickets.estado_ticket == True
         ).first()
 
         if not ticket:
             return {
                 "success": False,
-                "detail": "El ticket no existe."
+                "detail": "El ticket no existe o está inactivo."
             }
 
         nuevo_comentario = Comentarios(

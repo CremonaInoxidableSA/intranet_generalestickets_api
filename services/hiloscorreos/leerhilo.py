@@ -79,9 +79,12 @@ async def leer_archivo_eml_service(id_ticket: int, id_hilo: int) -> dict:
 
     db = SessionLocal()
     try:
-        ticket = db.query(Tickets).filter(Tickets.id_ticket == id_ticket).first()
+        ticket = db.query(Tickets).filter(
+            Tickets.id_ticket == id_ticket,
+            Tickets.estado_ticket == True
+        ).first()
         if not ticket:
-            raise ValueError(f"Ticket con ID {id_ticket} no encontrado.")
+            raise ValueError(f"Ticket con ID {id_ticket} no encontrado o está inactivo.")
 
         hilo = db.query(Hilos).filter(Hilos.id_hilo == id_hilo).first()
         if not hilo:

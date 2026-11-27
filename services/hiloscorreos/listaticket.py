@@ -10,6 +10,19 @@ def listar_hilos_por_ticket_service(id_ticket: int):
     """
     db = SessionLocal()
     try:
+        from models.tickets import Tickets
+        
+        ticket = db.query(Tickets).filter(
+            Tickets.id_ticket == id_ticket,
+            Tickets.estado_ticket == True
+        ).first()
+        
+        if not ticket:
+            return {
+                "success": False,
+                "detail": "El ticket no existe o está inactivo."
+            }
+        
         hilos = db.query(Hilos).join(
             HiloTickets, Hilos.id_hilo == HiloTickets.id_hilo
         ).filter(

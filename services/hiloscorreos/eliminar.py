@@ -31,17 +31,17 @@ async def eliminar_hilo_service(id_ticket: int, id_hilo: int) -> dict:
 
     db = SessionLocal()
     try:
-        # Validar que el ticket existe
-        ticket = db.query(Tickets).filter(Tickets.id_ticket == id_ticket).first()
+        ticket = db.query(Tickets).filter(
+            Tickets.id_ticket == id_ticket,
+            Tickets.estado_ticket == True
+        ).first()
         if not ticket:
-            raise ValueError(f"Ticket con ID {id_ticket} no encontrado.")
+            raise ValueError(f"Ticket con ID {id_ticket} no encontrado o está inactivo.")
 
-        # Validar que el hilo existe
         hilo = db.query(Hilos).filter(Hilos.id_hilo == id_hilo).first()
         if not hilo:
             raise ValueError(f"Hilo con ID {id_hilo} no encontrado.")
 
-        # Validar que el hilo está vinculado al ticket
         hilo_ticket = db.query(HiloTickets).filter(
             HiloTickets.id_ticket == id_ticket,
             HiloTickets.id_hilo == id_hilo
@@ -49,15 +49,12 @@ async def eliminar_hilo_service(id_ticket: int, id_hilo: int) -> dict:
         if not hilo_ticket:
             raise ValueError(f"El hilo {id_hilo} no está vinculado al ticket {id_ticket}.")
 
-        # Preparar ruta del archivo
         ruta_archivo = CARPETA_HILOSCORREOS / hilo.nombre_archivo
 
-        # Eliminar de la base de datos primero
         db.delete(hilo_ticket)
         db.delete(hilo)
         db.commit()
 
-        # Eliminar archivo físico
         _eliminar_archivo(ruta_archivo)
 
         return {
