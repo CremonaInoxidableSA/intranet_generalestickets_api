@@ -21,12 +21,6 @@ def crear_representante_service(
     if not apellido or not apellido.strip():
         raise ValueError("El apellido del representante no puede estar vacío.")
 
-    if not correo or not correo.strip():
-        raise ValueError("El correo del representante no puede estar vacío.")
-
-    if not area or not area.strip():
-        raise ValueError("El área del representante no puede estar vacía.")
-
     db = SessionLocal()
     try:
         cliente = db.query(Clientes).filter(
@@ -40,9 +34,9 @@ def crear_representante_service(
             id_cliente=id_cliente,
             nombre=nombre.strip(),
             apellido=apellido.strip(),
-            correo=correo.strip(),
-            telefono=telefono.strip(),
-            area=area.strip(),
+            correo=correo.strip() if correo else None,
+            telefono=telefono.strip() if telefono else None,
+            area=area.strip() if area else None,
             estado=True
         )
 

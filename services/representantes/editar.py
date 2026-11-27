@@ -25,12 +25,6 @@ def editar_representante_service(
     if not apellido or not apellido.strip():
         raise ValueError("El apellido del representante no puede estar vacío.")
 
-    if not correo or not correo.strip():
-        raise ValueError("El correo del representante no puede estar vacío.")
-
-    if not area or not area.strip():
-        raise ValueError("El área del representante no puede estar vacía.")
-
     db = SessionLocal()
     try:
         representante = db.query(Representantes).filter(
@@ -50,9 +44,9 @@ def editar_representante_service(
         representante.id_cliente = id_cliente
         representante.nombre = nombre.strip()
         representante.apellido = apellido.strip()
-        representante.correo = correo.strip()
-        representante.telefono = telefono
-        representante.area = area.strip()
+        representante.correo = correo.strip() if correo else None
+        representante.telefono = telefono.strip() if telefono else None
+        representante.area = area.strip() if area else None
 
         db.commit()
         db.refresh(representante)
