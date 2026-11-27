@@ -9,9 +9,9 @@ class Representantes(Base):
     id_cliente = Column(Integer, ForeignKey("clientes.id_cliente"), nullable=False)
     nombre = Column(String(255), nullable=False)
     apellido = Column(String(255), nullable=False)
-    correo = Column(String(255), nullable=False)
-    telefono = Column(String(255), nullable=False)
-    area = Column(String(255), nullable=False)
+    correo = Column(String(255), nullable=True)
+    telefono = Column(String(255), nullable=True)
+    area = Column(String(255), nullable=True)
     estado = Column(Boolean, nullable=False, default=True)
 
     clientes = relationship("Clientes", back_populates="representantes")
