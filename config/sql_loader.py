@@ -46,12 +46,12 @@ def tabla_tiene_registros(tabla: str) -> bool:
 
 def cargar_datos_iniciales() -> None:
     """Carga los inserts iniciales. Se omite si la tabla usuarios ya tiene datos."""
-    if tabla_tiene_registros("tickets"):
-        print("Carga inicial omitida: la tabla tickets ya tiene datos.")
+    if tabla_tiene_registros("clientes"):
+        print("Carga inicial omitida: la tabla clientes ya tiene datos.")
         return
 
     archivos = [
-        #os.path.join(SQL_DIR, "insert_tickets.sql")
+        os.path.join(SQL_DIR, "insert_clientes.sql")
     ]
 
     for ruta in archivos:
