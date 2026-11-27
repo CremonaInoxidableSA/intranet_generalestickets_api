@@ -19,11 +19,12 @@ def obtener_detalle_ticket_service(id_ticket: int) -> dict:
     db = SessionLocal()
     try:
         ticket = db.query(Tickets).filter(
-            Tickets.id_ticket == id_ticket
+            Tickets.id_ticket == id_ticket,
+            Tickets.estado_ticket == True
         ).first()
 
         if ticket is None:
-            return _error(404, "El ticket no existe.")
+            return _error(404, "El ticket no existe o está inactivo.")
 
         representante = db.query(Representantes).filter(
             Representantes.id_representante == ticket.id_representante

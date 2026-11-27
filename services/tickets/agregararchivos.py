@@ -44,11 +44,12 @@ async def agregar_archivos_ticket_service(id_ticket: int, archivos: List[UploadF
     nombres_guardados: List[str] = []
     try:
         ticket = db.query(Tickets).filter(
-            Tickets.id_ticket == id_ticket
+            Tickets.id_ticket == id_ticket,
+            Tickets.estado_ticket == True
         ).first()
 
         if not ticket:
-            raise ValueError(f"Ticket con ID {id_ticket} no encontrado.")
+            raise ValueError(f"Ticket con ID {id_ticket} no encontrado o está inactivo.")
 
         total_actual = db.query(MultimediaTickets).filter(
             MultimediaTickets.id_ticket == id_ticket

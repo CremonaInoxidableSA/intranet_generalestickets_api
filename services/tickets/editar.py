@@ -91,11 +91,12 @@ def editar_ticket_service(datos: EditarTicketRequest) -> dict:
     db = SessionLocal()
     try:
         ticket = db.query(Tickets).filter(
-            Tickets.id_ticket == datos.id_ticket
+            Tickets.id_ticket == datos.id_ticket,
+            Tickets.estado_ticket == True
         ).first()
 
         if not ticket:
-            raise ValueError(f"Ticket con ID {datos.id_ticket} no encontrado.")
+            raise ValueError(f"Ticket con ID {datos.id_ticket} no encontrado o está inactivo.")
 
         if datos.id_representante is not None:
             representante = db.query(Representantes).filter(

@@ -3,6 +3,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from config.db import SessionLocal
 from models.multimedia import Multimedia
 from models.multimedia_tickets import MultimediaTickets
+from models.tickets import Tickets
 from services.tickets.crear import CARPETA_MULTIMEDIA
 
 
@@ -27,6 +28,14 @@ def eliminar_archivo_ticket_service(id_ticket: int, nombre_archivo: str) -> dict
 
     db = SessionLocal()
     try:
+        ticket = db.query(Tickets).filter(
+            Tickets.id_ticket == id_ticket,
+            Tickets.estado_ticket == True
+        ).first()
+
+        if not ticket:
+            return _error(404, f"Ticket con ID {id_ticket} no encontrado o está inactivo.")
+
         vinculo = db.query(MultimediaTickets).join(
             Multimedia, Multimedia.id_multimedia == MultimediaTickets.id_multimedia
         ).filter(

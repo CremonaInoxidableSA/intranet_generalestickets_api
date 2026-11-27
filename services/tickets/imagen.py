@@ -3,6 +3,7 @@ from pathlib import Path
 from config.db import SessionLocal
 from models.multimedia import Multimedia
 from models.multimedia_tickets import MultimediaTickets
+from models.tickets import Tickets
 from services.tickets.crear import CARPETA_MULTIMEDIA, EXTENSIONES_PERMITIDAS
 
 
@@ -60,14 +61,17 @@ def validar_acceso_imagen(nombre_archivo: str) -> dict:
     try:
         vinculo = db.query(MultimediaTickets).join(
             Multimedia, Multimedia.id_multimedia == MultimediaTickets.id_multimedia
+        ).join(
+            Tickets, Tickets.id_ticket == MultimediaTickets.id_ticket
         ).filter(
-            Multimedia.nombre_archivo == nombre
+            Multimedia.nombre_archivo == nombre,
+            Tickets.estado_ticket == True
         ).first()
     finally:
         db.close()
 
     if vinculo is None:
-        return _error(404, "El archivo no existe o no está asociado a ningún ticket.")
+        return _error(404, "El archivo no existe, no está asociado a ningún ticket o el ticket está inactivo.")
 
     ruta = CARPETA_MULTIMEDIA / nombre
 
