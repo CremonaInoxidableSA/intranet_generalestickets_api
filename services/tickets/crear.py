@@ -186,7 +186,8 @@ async def crear_ticket_service(
             estado=estado,
             resolucion=resolucion_limpia,
             fecha_resolucion=fecha_resolucion,
-            tiempo_empleado=tiempo_empleado
+            tiempo_empleado=tiempo_empleado,
+            estado_ticket=True
         )
 
         db.add(nuevo_ticket)

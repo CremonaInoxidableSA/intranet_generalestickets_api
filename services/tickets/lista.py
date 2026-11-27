@@ -16,7 +16,7 @@ def _serializar_ticket(ticket: Tickets) -> dict:
 def listar_tickets_service() -> dict:
     db = SessionLocal()
     try:
-        tickets = db.query(Tickets).order_by(Tickets.fecha_creacion.desc()).all()
+        tickets = db.query(Tickets).filter(Tickets.estado_ticket == True).order_by(Tickets.fecha_creacion.desc()).all()
         data = [_serializar_ticket(ticket) for ticket in tickets]
 
         return {

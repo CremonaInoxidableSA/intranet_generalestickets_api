@@ -19,6 +19,7 @@ class Tickets(Base):
     resolucion = Column(String(255), nullable=True)
     fecha_resolucion = Column(DateTime, nullable=True)
     tiempo_empleado = Column(Integer, nullable=True)
+    estado_ticket = Column(Boolean, nullable=False, default=True)
 
     comentarios = relationship("Comentarios", back_populates="tickets")
     clientes = relationship("Clientes", back_populates="tickets")
